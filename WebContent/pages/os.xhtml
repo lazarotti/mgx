@@ -1,0 +1,331 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+	xmlns:siq="http://www.siq.com.br/faces"
+
+                xmlns:a4j="http://richfaces.org/a4j">
+                
+                
+
+	<ui:define name="body">
+	             
+		<h:messages styleClass="message" showSummary="true"/>
+		
+	<h:form id="orcamento">	
+    <rich:modalPanel id="modalAc">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="A/C"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:outputText value="X" id="hidetext" style="cursor:point"/>                
+                <rich:componentControl for="modalPane" attachTo="hidetext" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+ 		<h:panelGrid columns="2" cellspacing="15" columnClasses="panel_label,panel_input_space" style="width:100%">        
+    		<h:outputText value="Aos cuidados de:"/>
+    		<h:inputText value="#{gerenciadorOS.ac}" />
+    	</h:panelGrid>
+    	
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">	
+					<a4j:commandButton styleClass="botao" value="Gerar" style="float:right;margin-botton:5px" 
+					   reRender="equipamentoFiltroListaForm:acHidden" 
+					    oncomplete="Richfaces.hideModalPanel('modalAc');document.getElementById('osForm:orcamentoHidden').click();"/> 	
+    			</s:div>
+    		</h:panelGrid>
+	
+    </rich:modalPanel>		
+	</h:form>	
+		
+    <rich:modalPanel id="modalPane" width="600" autosized="true">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Equipamentos"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:outputText value="X" id="hidetext" style="cursor:point"/>                
+                <rich:componentControl for="modalPane" attachTo="hidetext" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        
+      
+<!-- comeca aqui -->
+	<h:form id="equipamentoFiltro">		
+		<rich:panel header="Pesquisa equipamentos">
+			<h:panelGrid columns="4" cellspacing="15" columnClasses="panel_label,panel_input_space,panel_label,panel_input" style="width:100%">
+							
+			
+				<h:outputLabel value="N. Serie" for="numeroSerie" />
+				<h:inputText id="numeroSerie" value="#{equipamentoFiltro.numeroSerie}" />
+				
+				<h:outputLabel value="Tipo" for="tipo"/>
+				<h:selectOneMenu id="tipo" value="#{equipamentoFiltro.tipoEquipamento}">
+					<s:selectItems value="#{tipoAll}" var="tipo" label="#{tipo.nome}" noSelectionLabel=""/>
+					<s:convertEntity />					
+				</h:selectOneMenu>	
+				
+				<h:outputLabel value="Fabricante" for="fabricante" />
+				<h:selectOneMenu id="fabricante" value="#{equipamentoFiltro.fabricante}" >
+					<s:selectItems value="#{fabricanteAll}" var="fabricante" label="#{fabricante.nome}" noSelectionLabel=""/>
+					<s:convertEntity />					
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Modelo" for="modelo" />
+				<h:inputText id="modelo" value="#{equipamentoFiltro.modelo}" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1" style="width:100%">
+				<a4j:commandButton value="Exibir" style="float:right;margin-botton:5px" reRender="equipamentoFiltroListaForm:equipTable"/> 
+			</h:panelGrid>			
+						
+		</rich:panel>
+		</h:form>
+
+		<rich:panel header="Resultados encontrados">
+		<h:form id="equipamentoFiltroListaForm">			
+		
+			<rich:dataTable id="equipTable"  var="equip" width="100%" value="#{equipamentoFiltroQuery.resultList}" >
+			
+
+				<rich:column sortable="true" >
+ 					<f:facet name="header">
+ 						<h:outputText  value="Serie" />
+ 					</f:facet>	
+ 					<a4j:commandLink action="#{gerenciadorOS.ordemServico.setEquipamento(equip)}"
+ 						 reRender="osForm:numeroSerie,osForm:fabricante,osForm:equipamento,osForm:modelo"  
+ 						 value="#{equip.numeroSerie}" oncomplete="#{rich:component('modalPane')}.hide()"/>		
+				</rich:column>	
+							
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Fabricante" />
+ 					</f:facet>	
+ 					<a4j:commandLink action="#{gerenciadorOS.ordemServico.setEquipamento(equip)}"
+ 						 reRender="osForm:numeroSerie,osForm:fabricante,osForm:equipamento,osForm:modelo"  
+ 						 value="#{equip.fabricante.nome}" oncomplete="#{rich:component('modalPane')}.hide()"/>				
+				</rich:column>
+				
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Tipo" />
+ 					</f:facet>	
+ 					<a4j:commandLink action="#{gerenciadorOS.ordemServico.setEquipamento(equip)}"
+ 						 reRender="osForm:numeroSerie,osForm:fabricante,osForm:equipamento,osForm:modelo"  
+ 						 value="#{equip.tipoEquipamento.nome}" oncomplete="#{rich:component('modalPane')}.hide()"/>				
+				</rich:column>
+				
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Modelo" />
+ 					</f:facet>	
+ 					<a4j:commandLink action="#{gerenciadorOS.ordemServico.setEquipamento(equip)}"
+ 						 reRender="osForm:numeroSerie,osForm:fabricante,osForm:equipamento,osForm:modelo"  
+ 						 value="#{equip.modelo}" oncomplete="#{rich:component('modalPane')}.hide()"/>				
+				</rich:column>									
+			
+			
+</rich:dataTable>
+		</h:form>
+		</rich:panel>				 
+
+<!-- termina aqui -->
+        
+        
+    </rich:modalPanel>
+    
+    
+    
+    
+    <!-- <h:outputLink value="#" id="link">
+        Show Modal Panel 
+        <rich:componentControl for="modalPane" attachTo="link" operation="show" event="onclick"/>
+    </h:outputLink> -->
+    
+    		
+		
+		
+		<h:form id="osForm">
+
+		
+		<rich:panel header="Ordem de Servico" >
+		
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">
+				
+				    <h:commandButton class="botao" id="emiteComprovanteTopo" action="#{gerenciadorOS.emitirComprovante()}" 
+			 				value="Emitir Comprovante" rendered="#{gerenciadorOS.ordemServico.id != null}"/>	
+					
+					<h:commandButton class="botao" id="envioOrcamentoTopo" action="#{gerenciadorOS.enviarOrcamento()}" 
+			 				value="Enviar Orcamento" rendered="#{gerenciadorOS.ordemServico.id != null}"/>						
+								
+					<s:button styleClass="botao" view="/pages/osFiltro.xhtml" value="Filtro OS"  />
+					<s:button styleClass="botao" view="/pages/equipamentoFiltro.xhtml" value="Filtro Equipamento" />
+					
+					
+					<!-- <input type="button" class="botao" onclick="Richfaces.showModalPanel('orcamento:modalAc')" value="Gerar Orcamento"/>  -->
+					
+					<h:commandButton class="botao" id="orcamentoHiddenTopo" action="${gerenciadorOS.gerarOrcamento()}" 
+			 				value="Download Orcamento" rendered="#{gerenciadorOS.ordemServico.id != null}" />						
+					
+						
+					<h:commandButton styleClass="botao" action="#{gerenciadorOS.salvarOrdem}" value="Salvar"
+						 rendered="#{gerenciadorOS.ordemServico.id == null}" />
+					<h:commandButton styleClass="botao" action="#{gerenciadorOS.modificaOrdem}" value="Alterar"
+						 rendered="#{gerenciadorOS.ordemServico.id != null}" /> 
+
+				</s:div>
+				
+			</h:panelGrid>		
+		
+ 			<h:panelGrid columns="4" cellspacing="15" columnClasses="panel_label,panel_input_space,panel_label,panel_input" style="width:100%">
+				<h:outputLabel value="Numero" for="numeroOrdem" /> 
+				<h:inputText id="numeroOrdem" value="#{gerenciadorOS.ordemServico.numero}" disabled="#{gerenciadorOS.ordemServico.id == null}"/>
+						
+				
+				<h:outputLabel value="Cliente" for="clienteId" />		
+				<a4j:region renderRegionOnly="true">		
+				<h:inputText id="clienteId" value="#{gerenciadorOS.clienteNome}"/>
+				
+			
+			       <rich:suggestionbox id="suggestionBoxId" for="clienteId"
+                    suggestionAction="#{gerenciadorOS.buscaClientes}" var="clientex" limitToList="10"
+                     minChars="3"  requestDelay="3"  eventsQueue="clientesb"
+                    usingSuggestObjects="false" nothingLabel="Nenhum encontrado"  >
+                    
+                    
+					<h:column>
+			        	<h:outputText value="#{clientex.cadastro.nomeFantasia}" />
+			        	
+    				</h:column>
+                    
+                   </rich:suggestionbox>
+                 </a4j:region>
+                 		
+				
+				<h:outputLabel value="Tel-1 Cliente" for="telCliente1" rendered="#{gerenciadorOS.ordemServico.cliente != null}" />
+				<h:inputText id="telCliente1" value="#{gerenciadorOS.ordemServico.cliente.cadastro.telefone1}" disabled="true" rendered="#{gerenciadorOS.ordemServico.cliente != null}" />
+		
+				<h:outputLabel value="Tel-2 Cliente" for="telCliente2" rendered="#{gerenciadorOS.ordemServico.cliente != null}" />
+				<h:inputText id="telCliente2" value="#{gerenciadorOS.ordemServico.cliente.cadastro.telefone2}" disabled="true" rendered="#{gerenciadorOS.ordemServico.cliente != null}" />
+
+				<h:outputLabel value="Numero de Serie" for="numeroSerie" />
+				<h:inputText id="numeroSerie" value="#{gerenciadorOS.ordemServico.equipamento.numeroSerie}" disabled="true"/>
+				
+				<h:outputLabel value="Fabricante" for="fabricante" />
+				<h:inputText id="fabricante" value="#{gerenciadorOS.ordemServico.equipamento.fabricante.nome}" disabled="true"/>
+
+				<h:outputLabel value="Equipamento" for="equipamento" />
+				<h:inputText id="equipamento" value="#{gerenciadorOS.ordemServico.equipamento.tipoEquipamento.nome}" disabled="true"/>					
+				
+				<h:outputLabel value="Modelo" for="modelo" />
+				<h:inputText id="modelo" value="#{gerenciadorOS.ordemServico.equipamento.modelo}" disabled="true" />				
+
+				<h:outputLabel value="Data entrada" for="dataEntrada" />
+				<rich:calendar inputStyle="width:200px" id="dataEntrada" required="true"
+					popup="true" datePattern="dd/MM/yyyy" value="#{gerenciadorOS.ordemServico.dataEntrada}" />
+				
+				<h:outputLabel value="Data retirada" for="dataRetirada" />
+				<rich:calendar inputStyle="width:200px" id="dataRetirada" 
+					popup="true" datePattern="dd/MM/yyyy" value="#{gerenciadorOS.ordemServico.dataRetirada}"/>				
+
+				<h:outputLabel value="Defeito relatado" for="defeitoRelatado"  />
+				<h:inputTextarea id="defeitoRelatado" value="#{gerenciadorOS.ordemServico.defeitoRelatado}" />
+
+				<h:outputLabel value="Solucao Adotada" for="solucaoAdotada" />
+				<h:inputTextarea id="solucaoAdotada" value="#{gerenciadorOS.ordemServico.solucaoAdotada}" />
+				
+				<h:outputLabel value="Tecnico Resp" for="tecnico" />
+				<h:selectOneMenu id="tecnico" value="#{gerenciadorOS.ordemServico.tecnico}">
+					<s:selectItems value="#{tecnicoAll}" var="tecnico" label="#{tecnico.nome}" noSelectionLabel=""/>
+					<s:convertEntity />				
+				</h:selectOneMenu>				
+
+				<h:outputLabel value="Pagamento" for="pagamento" />
+				<h:selectOneMenu id="pagamento" value="#{gerenciadorOS.ordemServico.pagamento}">
+					<s:selectItems value="#{pagamentoAll}" var="pagamento" label="#{pagamento.nome}" noSelectionLabel=""/>
+					<s:convertEntity />				
+				</h:selectOneMenu> 
+
+				<h:outputLabel value="Status" for="status" /> 
+				<h:selectOneMenu id="status" value="#{gerenciadorOS.ordemServico.status.statusTipo}">
+					<s:selectItems value="#{gerenciadorOS.ordemServico.status.getStatusCollection()}" var="status"
+					  noSelectionLabel="" label="#{status.label}"/>
+					<s:convertEnum/>					
+				</h:selectOneMenu>	
+
+				<h:outputLabel value="Valor" for="valor"  />
+				<h:inputText id="valor" value="#{gerenciadorOS.ordemServico.valor}" label="valor" converter="moneyBrConverter" style="text-align:right" />
+			
+							
+				<h:outputLabel value="Obs" for="obs" />
+				<h:inputTextarea id="obs" value="#{gerenciadorOS.ordemServico.observacao}" />	
+				
+				<h:inputHidden id="acHidden" value="#{gerenciadorOS.ac}" />
+				
+
+			</h:panelGrid>
+			
+			
+		<h:panelGrid columns="2" width="100%" style="border-collapse: collapse" columnClasses="panel_acessorio_garantia dr-pnl rich-panel,panel_acessorio_garantia dr-pnl rich-panel">		
+		
+		<s:div styleClass="dr-pnl-h rich-panel-header"><h:outputText value="Acessorio"/></s:div>	
+		<s:div styleClass="dr-pnl-h rich-panel-header"><h:outputText value="Garantia" /></s:div>	
+		
+			<h:selectManyCheckbox value="#{gerenciadorOS.ordemServico.acessorios}" layout="pageDirection">
+				<s:selectItems value="#{acessorioAll}"  var="acessorio" label="#{acessorio.nome}"/>
+				<s:convertEntity/>
+			</h:selectManyCheckbox>
+
+				<h:selectOneRadio  value="#{gerenciadorOS.ordemServico.garantia}" layout="pageDirection">
+					<s:selectItems value="#{garantiaAll}" var="garantia" label="#{garantia.nome}"/>
+					<s:convertEntity />				
+				</h:selectOneRadio>
+		
+		</h:panelGrid>			
+							
+							
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">
+				
+				    <h:commandButton class="botao" id="emiteComprovante" action="#{gerenciadorOS.emitirComprovante()}" 
+			 				value="Emitir Comprovante" rendered="#{gerenciadorOS.ordemServico.id != null}"/>	
+					
+					<h:commandButton class="botao" id="envioOrcamento" action="#{gerenciadorOS.enviarOrcamento()}" 
+			 				value="Enviar Orcamento" rendered="#{gerenciadorOS.ordemServico.id != null}"/>						
+								
+					<s:button styleClass="botao" view="/pages/osFiltro.xhtml" value="Filtro OS"  />
+					<s:button styleClass="botao" view="/pages/equipamentoFiltro.xhtml" value="Filtro Equipamento" />
+					
+					
+					<!-- <input type="button" class="botao" onclick="Richfaces.showModalPanel('orcamento:modalAc')" value="Gerar Orcamento"/>  -->
+					
+					<h:commandButton class="botao" id="orcamentoHidden" action="${gerenciadorOS.gerarOrcamento()}" 
+			 				value="Download Orcamento" rendered="#{gerenciadorOS.ordemServico.id != null}" />						
+					
+						
+					<h:commandButton styleClass="botao" action="#{gerenciadorOS.salvarOrdem}" value="Salvar"
+						 rendered="#{gerenciadorOS.ordemServico.id == null}" />
+					<h:commandButton styleClass="botao" action="#{gerenciadorOS.modificaOrdem}" value="Alterar"
+						 rendered="#{gerenciadorOS.ordemServico.id != null}" /> 
+
+				</s:div>
+				
+			</h:panelGrid>
+						
+			
+		</rich:panel>
+	
+	</h:form>
+	</ui:define>
+</ui:composition>

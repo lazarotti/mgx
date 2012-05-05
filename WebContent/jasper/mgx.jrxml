@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="mgx"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="dataHoje" isForPrompting="false" class="java.util.Date">
+		<defaultValueExpression ><![CDATA[new java.util.Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="os" isForPrompting="false" class="br.com.mgx.entity.OrdemServico"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="708"  isSplitAllowed="true" >
+				<rectangle radius="5" >
+					<reportElement
+						x="1"
+						y="5"
+						width="525"
+						height="115"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="180"
+						y="10"
+						width="318"
+						height="37"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ASSISTÊNCIA TÉCNICA EM MONITORES, 
+IMPRESSORAS E NOBREAKS]]></text>
+				</staticText>
+				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="16"
+						width="172"
+						height="61"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="180"
+						y="90"
+						width="344"
+						height="14"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Serviços autorizados:TS-Shara, Enermax, ForceLine, Ragtech, NHS, Lacerda, RCG, Maelli KVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="47"
+						width="221"
+						height="21"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Rua Maestro José Maria Passos, 325                                              Ponte São João - Jundiaí/SP CEP: 13.218-100]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="4"
+						y="77"
+						width="172"
+						height="18"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[megamaxorcamentos@terra.com.br]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="79"
+						width="117"
+						height="11"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Site: www.megamax.inf.br]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="68"
+						width="220"
+						height="14"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Fone / Fax: (11)4607-5653 / (11)4817-2289]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="10"
+						y="143"
+						width="37"
+						height="17"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Para:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="10"
+						y="160"
+						width="37"
+						height="17"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[A/C:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="143"
+						width="297"
+						height="17"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getCliente().getCadastro().getNomeFantasia()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="160"
+						width="296"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getCliente().getCadastro().getContato()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="349"
+						y="143"
+						width="72"
+						height="17"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Telefone:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="160"
+						width="72"
+						height="17"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Fax:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="143"
+						width="98"
+						height="17"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getCliente().getCadastro().getTelefone1()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="160"
+						width="98"
+						height="17"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getCliente().getCadastro().getFax()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="198"
+						width="536"
+						height="32"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Oblique" size="18" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[Orçamento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="9"
+						y="243"
+						width="75"
+						height="15"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Número da OS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="9"
+						y="258"
+						width="74"
+						height="15"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Data:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="9"
+						y="273"
+						width="74"
+						height="15"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Equipamento:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="83"
+						y="243"
+						width="116"
+						height="15"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$P{os}.getNumero()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="83"
+						y="258"
+						width="116"
+						height="15"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{dataHoje}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="83"
+						y="273"
+						width="447"
+						height="15"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getEquipamento().getTipoEquipamento().getNome() + " " + 
+$P{os}.getEquipamento().getFabricante().getNome() + " " +  
+$P{os}.getEquipamento().getModelo() +
+"  S/N:"+ $P{os}.getEquipamento().getNumeroSerie()]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="332"
+						y="352"
+						width="0"
+						height="0"
+						key="rectangle-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="9"
+						y="303"
+						width="517"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Produto ou serviço]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="4"
+						y="320"
+						width="525"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="12"
+						y="320"
+						width="510"
+						height="188"
+						key="textField-8"/>
+					<box topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getSolucaoAdotada()]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="4"
+						y="516"
+						width="525"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="8"
+						y="519"
+						width="47"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Garantia:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="56"
+						y="519"
+						width="129"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getGarantia().getNome()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="391"
+						y="519"
+						width="28"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Valor:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="¤ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="519"
+						width="101"
+						height="15"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$P{os}.getValor()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="382"
+						y="534"
+						width="146"
+						height="9"
+						forecolor="#CC0000"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Valor válido por 5 dias após a data do orçamento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="557"
+						width="330"
+						height="14"
+						forecolor="#CC0000"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[- Favor retornar este orçamento aprovado ou não]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="567"
+						width="464"
+						height="14"
+						forecolor="#CC0000"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[- Equipamentos que permanecerem mais de 3 meses, sem nenhuma aprovação serão vendidos p/ cobrir custos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="637"
+						width="111"
+						height="19"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[(   )  APROVADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="116"
+						y="637"
+						width="97"
+						height="19"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[(   )  REPROVADO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="225"
+						y="637"
+						width="128"
+						height="19"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Data  _____ /_____/_____]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="370"
+						y="633"
+						width="158"
+						height="19"
+						key="staticText-25"/>
+					<box></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[_____________________________]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="370"
+						y="653"
+						width="158"
+						height="19"
+						key="staticText-26"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Nome Legível]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="615"
+						width="499"
+						height="14"
+						forecolor="#CC0000"
+						key="staticText-27"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[IMPORTANTE: Em caso de resposta para o orçamento VIA FAX, favor imprimir este documento e  preencher os dados abaixo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="586"
+						width="525"
+						height="22"
+						forecolor="#CC0000"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[- Para aprovar ou reprovar este orçamento, envie um e-mail para megamaxorcamentos@terra.com.br, contendo no título do email o número da Ordem de Serviço e a descrição APROVADO ou REPROVADO. Exemplo do título do email: "OS 14532 - APROVADO"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="534"
+						width="101"
+						height="15"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Meio de pagamento:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="108"
+						y="534"
+						width="129"
+						height="15"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{os}.getPagamento().getNome()]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

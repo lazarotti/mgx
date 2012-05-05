@@ -1,0 +1,56 @@
+.panel_label{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-bottom: 1px #e2e2e2 solid;	
+}
+
+input{
+	width: 240px;	
+}
+
+.botao{
+	color:#2B0A70;
+	border: 1px solid #30A907;
+	background-color:white;
+	cursor:pointer;
+        border-style:outset;
+        margin:3px;
+	width:auto;
+}
+
+input[type='radio']{
+	width: 15px;
+	padding:0;
+	margin:0;
+}
+
+input[type='checkbox']{
+	width: 15px;
+	padding:0;
+	margin:0;
+	margin-left: 5px;
+}
+
+select{
+	width:230px	
+}
+
+textarea{
+	width:230px;
+	height: 100px;
+}
+
+.panel_input{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+.panel_input_space{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-right: 20px;	
+}
+
+.panel_acessorio_garantia{
+	width:50%;
+	vertical-align: top;
+}
+

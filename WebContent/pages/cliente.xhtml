@@ -1,0 +1,108 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="clienteForm">
+		<h:messages styleClass="message" />
+		<rich:panel header="Cliente">
+			<h:panelGrid columns="4" cellspacing="15" columnClasses="panel_label,panel_input_space,panel_label,panel_input" style="width:100%">
+				<h:outputLabel value="Nome Fantasia" for="nomeFantasia" />
+				<h:inputText id="nomeFantasia" value="#{cliente.cadastro.nomeFantasia}" required="true" />
+				
+				<h:outputLabel value="Razao Social" for="razaoSocial" />
+				<h:inputText id="razaoSocial" value="#{cliente.cadastro.razaoSocial}" />
+				
+				<h:outputLabel value="CNPJ / CPF" for="cpfCnpj" />
+				<h:inputText id="cpfCnpj" value="#{cliente.cadastro.cpfCnpj}" />	
+				
+				<h:outputLabel value="Inscricao" for="inscricao" />
+				<h:inputText id="inscricao" value="#{cliente.cadastro.inscricao}" />
+				
+				<h:outputLabel value="Endereco" for="endereco" />
+				<h:inputText id="endereco" value="#{cliente.cadastro.endereco}" />
+				
+				<h:outputLabel value="Bairro" for="bairro" />
+				<h:inputText id="bairro" value="#{cliente.cadastro.bairro}" />								
+													
+				<h:outputLabel value="Cidade" for="cidade" />
+				<h:inputText id="cidade" value="#{cliente.cadastro.cidade}" />
+				
+				<h:outputLabel value="UF" for="uf" />
+				<h:selectOneMenu id="uf" value="#{cliente.cadastro.uf}">
+					<f:selectItem  itemValue="AC"/>
+					<f:selectItem  itemValue="AL"/>
+					<f:selectItem  itemValue="AP"/>
+					<f:selectItem  itemValue="AM"/>
+					<f:selectItem  itemValue="BA"/>
+					<f:selectItem  itemValue="CE"/>
+					<f:selectItem  itemValue="DF"/>
+					<f:selectItem  itemValue="ES"/>
+					<f:selectItem  itemValue="GO"/>
+					<f:selectItem  itemValue="MA"/>
+					<f:selectItem  itemValue="MG"/>
+					<f:selectItem  itemValue="MS"/>
+					<f:selectItem  itemValue="MT"/>
+					<f:selectItem  itemValue="PA"/>
+					<f:selectItem  itemValue="PB"/>
+					<f:selectItem  itemValue="PE"/>
+					<f:selectItem  itemValue="PI"/>
+					<f:selectItem  itemValue="PR"/>
+					<f:selectItem  itemValue="RJ"/>
+					<f:selectItem  itemValue="RN"/>
+					<f:selectItem  itemValue="RS"/>
+					<f:selectItem  itemValue="RO"/>
+					<f:selectItem  itemValue="RR"/>
+					<f:selectItem  itemValue="SC"/>
+					<f:selectItem  itemValue="SE"/>
+					<f:selectItem  itemValue="SP"/>
+					<f:selectItem  itemValue="TO"/>
+				</h:selectOneMenu>								
+				
+				<h:outputLabel value="CEP" for="cep" />
+				<h:inputText id="cep" value="#{cliente.cadastro.cep}" />
+				
+				<h:outputLabel value="Email" for="email" />
+				<h:inputText id="email" value="#{cliente.cadastro.email}" required="true"/>
+				
+				<h:outputLabel value="Telefone-1" for="telefone1" />
+				<h:inputText id="telefone1" value="#{cliente.cadastro.telefone1}" />
+				
+				<h:outputLabel value="Telefone-2" for="telefone2" />
+				<h:inputText id="telefone2" value="#{cliente.cadastro.telefone2}" />
+				
+				<h:outputLabel value="Fax" for="fax" />
+				<h:inputText id="fax" value="#{cliente.cadastro.fax}" />
+				
+				<h:outputLabel value="Contato" for="contato" />
+				<h:inputText id="contato" value="#{cliente.cadastro.contato}" required="true"/>		
+				
+				<h:outputLabel value="Obs" for="observacao" />
+				<h:inputTextarea rows="5" id="observacao" value="#{cliente.cadastro.obs}" />																				
+				
+											
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">
+					<h:commandButton  value="Salvar" action="#{clienteDao.persist}" rendered="#{!clienteDao.isManaged()}" styleClass="botao"/>
+					<h:commandButton  value="Alterar" action="#{clienteDao.update}" rendered="#{clienteDao.isManaged()}" styleClass="botao"/>	
+					<h:commandButton  value="Apagar" action="#{clienteDao.remove}" rendered="#{clienteDao.isManaged()}" styleClass="botao"/>	
+					<s:button view="/pages/clienteFiltro.xhtml" value="Voltar" style="margin-left:5px" styleClass="botao"/>					
+				</s:div>
+			</h:panelGrid>			
+			
+		</rich:panel>
+		
+		</h:form>
+		
+	
+	</ui:define>
+</ui:composition>

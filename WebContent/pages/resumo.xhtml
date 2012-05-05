@@ -1,0 +1,64 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
+                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+>
+
+	<ui:define name="body">
+
+	<h:messages styleClass="message" />
+	
+	<h:form id="resumoForm">		
+		<rich:panel header="Resumo">
+			<h:panelGrid columns="2" cellspacing="15" columnClasses="panel_label,panel_input_space" style="width:100%">
+			
+			
+				<h:outputText value="Aguardando realizar orcamento"/>
+					<h:outputLink value="osFiltro.seam?enumStatus=AGUARDANDO_ORCAMENTO">
+						<h:outputText value="#{resumo.aguardandoOrcamento}"/>					
+					</h:outputLink>
+					
+				<h:outputText value="Aguardando envio de orcamento(email)"/>
+					<h:outputLink value="osFiltro.seam?enumStatus=AGUARDANDO_ENVIO_EMAIL">
+						<h:outputText value="#{resumo.aguardandoEnvioEmail}"/>					
+					</h:outputLink>					
+					
+				<h:outputText value="A espera de aprovacao" />
+					<h:outputLink value="osFiltro.seam?enumStatus=AGUARDANDO_APROVACAO">
+					<h:outputText value="#{resumo.aguardandoAprovacao}"/></h:outputLink>
+					
+				<h:outputText value="Orcamento aprovado" />
+					<h:outputLink value="osFiltro.seam?enumStatus=ORCAMENTO_APROVADO">
+					<h:outputText value="#{resumo.orcamentoAprovado}"/></h:outputLink>
+					
+				<h:outputText value="Orcamento reprovado" />
+					<h:outputLink value="osFiltro.seam?enumStatus=ORCAMENTO_REPROVADO">
+					<h:outputText value="#{resumo.orcamentoReprovado}"/></h:outputLink>																		
+
+				<h:outputText value="Executando o servico"/> 
+					<h:outputLink value="osFiltro.seam?enumStatus=EXECUTANDO_SERVICO">
+						<h:outputText value="#{resumo.executandoServico}"/>					
+					</h:outputLink>
+					
+				<h:outputText value="Pronto nao retirado"/> 
+					<h:outputLink value="osFiltro.seam?enumStatus=EQUIPAMENTO_PRONTO_NAO_RETIRADO">
+						<h:outputText value="#{resumo.equipamentoProntoNaoRetirado}"/>
+					</h:outputLink>
+					
+				<h:outputText value="Pronto retirado"/>
+					<h:outputLink value="osFiltro.seam?enumStatus=EQUIPAMENTO_PRONTO_RETIRADO">
+						<h:outputText value="#{resumo.equipamentoProntoRetirado}"/>					
+					</h:outputLink>													
+			</h:panelGrid>
+																
+		</rich:panel>
+		</h:form>	
+
+
+	</ui:define>
+</ui:composition>

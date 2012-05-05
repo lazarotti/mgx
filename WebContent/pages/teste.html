@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 
+Transitional//EN">
+<html>
+<head>
+<title>Centrar uma  página com CSS</title>
+<meta http-equiv="Content-Type" content="text/html; 
+charset=iso-8859-1">
+<head>
+<style type="text/css">
+body {
+margin:0;
+padding:0;
+background:#cccccc;
+text-align:center; /* hack para o IE */	
+	}
+#tudo {
+width: 760px;
+margin:0 auto;			
+padding: 10px;
+text-align:left; /* "remédio" para o hack do IE */	
+	}
+#conteudo {
+padding: 5px;
+background-color: #eeeeee;
+	}
+</style>
+</head>
+<body>
+<div id="tudo">
+<div>
+	<img src="img/cabec.png" alt="WOS" class="logo" />
+</div>
+
+<div id="conteudo">
+    <h1>Pagina Centrada com CSS sem scroll ate 800x600</h1>
+    <p> Não use nenhum elemento HTML 
+(figuras, tabelas, etc...) com largura 
+      superior a 750px.</p>
+</div>
+</div>
+</body>

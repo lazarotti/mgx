@@ -1,0 +1,59 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+
+                xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+
+	<h:messages id="messages" globalOnly="true" styleClass="message" />
+	<h:form id="garantiaFiltro">		
+		<rich:panel header="Pesquisa garantia">
+			<h:panelGrid columns="2" cellspacing="15" columnClasses="panel_label,panel_input_space" style="width:100%">
+							
+			
+				<h:outputLabel value="Nome" for="nome" />
+				<h:inputText id="nome" value="#{garantiaFiltro.nome}"  style="width:500px"/>
+
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" style="width:100%">
+				<h:commandButton  value="Exibir" style="float:right;margin-botton:5px" styleClass="botao"/>
+			</h:panelGrid>			
+												
+						
+		</rich:panel>
+		</h:form>	
+		<rich:panel header="Resultados encontrados">
+		<h:form id="garantiaFiltroListaForm">
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">	
+					<s:button view="/pages/garantia.xhtml" value="Nova Garantia" styleClass="botao"/>
+				</s:div>
+				
+			</h:panelGrid>			
+		
+			<rich:dataTable id="bla"   var="garantiaTable" width="100%" value="#{garantiaFiltroQuery.resultList}" >
+						
+				<rich:column sortable="true" >
+ 					<f:facet name="header">
+ 						<h:outputText  value="Nome" />
+ 					</f:facet>	
+ 					<s:link value="#{garantiaTable.nome}" view="/pages/garantia.seam">
+ 						<f:param  name="garantiaId" value="#{garantiaTable.id}" />
+ 					</s:link>		
+				</rich:column>	
+							
+</rich:dataTable>
+		</h:form>
+		</rich:panel>		
+
+	</ui:define>
+</ui:composition>

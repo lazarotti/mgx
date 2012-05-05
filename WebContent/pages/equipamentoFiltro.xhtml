@@ -1,0 +1,102 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+
+	<h:messages globalOnly="true" styleClass="message" />
+	<h:form id="equipamentoFiltro">		
+		<rich:panel header="Pesquisa equipamentos">
+			<h:panelGrid columns="4" cellspacing="15" columnClasses="panel_label,panel_input_space,panel_label,panel_input" style="width:100%">
+							
+			
+				<h:outputLabel value="N. Serie" for="numeroSerie" />
+				<h:inputText id="numeroSerie" value="#{equipamentoFiltro.numeroSerie}" />
+				
+				<h:outputLabel value="Tipo" for="tipo"/>
+				<h:selectOneMenu id="tipo" value="#{equipamentoFiltro.tipoEquipamento}">
+					<s:selectItems value="#{tipoAll}" var="tipo" label="#{tipo.nome}" noSelectionLabel=""/>
+					<s:convertEntity />					
+				</h:selectOneMenu>	
+				
+				<h:outputLabel value="Fabricante" for="fabricante" />
+					<h:inputText id="fabricante" value="#{equipamentoFiltro.fabricante.nome}" />		
+				
+			<h:outputLabel value="Modelo" for="modelo" />
+				<h:inputText id="modelo" value="#{equipamentoFiltro.modelo}" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1" style="width:100%">
+				<h:commandButton  value="Exibir" style="float:right;margin-botton:5px" styleClass="botao"/>
+			</h:panelGrid>			
+						
+		</rich:panel>
+		</h:form>	
+		<rich:panel header="Resultados encontrados">
+		<h:form id="equipamentoFiltroListaForm">
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">	
+					<s:button view="/pages/equipamento.xhtml" action="#{equipamentoDao.setId(null)}" value="Novo Equipamento" styleClass="botao" />
+					
+				</s:div>
+				
+			</h:panelGrid>			
+		
+			<rich:dataTable  var="equip" width="100%" rows="10"
+			 value="#{equipamentoFiltroQuery.resultList}" id="tableEquipamento" >
+
+				<rich:column sortable="true" >
+ 					<f:facet name="header">
+ 						<h:outputText  value="Serie" />
+ 					</f:facet>	
+ 					<s:link value="#{equip.numeroSerie}" view="/pages/equipamento.seam">
+ 						<f:param  name="equipId" value="#{equip.id}" />
+ 					</s:link>		
+				</rich:column>	
+							
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Fabricante" />
+ 					</f:facet>	
+ 					<s:link value="#{equip.fabricante.nome}" view="/pages/equipamento.seam">
+ 						<f:param  name="equipId" value="#{equip.id}" />
+ 					</s:link>			
+				</rich:column>
+				
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Tipo" />
+ 					</f:facet>	
+ 					<s:link value="#{equip.tipoEquipamento.nome}" view="/pages/equipamento.seam">
+ 						<f:param  name="equipId" value="#{equip.id}" />
+ 					</s:link>			
+				</rich:column>
+				
+				<rich:column>
+ 					<f:facet name="header">
+ 						<h:outputText  value="Modelo" />
+ 					</f:facet>	
+ 					<s:link value="#{equip.modelo}" view="/pages/equipamento.seam">
+ 						<f:param  name="equipId" value="#{equip.id}" />
+ 					</s:link>			
+				</rich:column>	
+				
+				<rich:column width="10px" >
+						<a4j:commandButton action="#{gerenciadorOS.novaOrdem(equip)}" value="Nova Ordem" styleClass="botao"/> 
+				</rich:column>													
+			</rich:dataTable>
+		<rich:datascroller for="tableEquipamento" id="sc1"/>	
+	
+		</h:form>
+		</rich:panel>		
+
+	</ui:define>
+</ui:composition>

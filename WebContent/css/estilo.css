@@ -1,0 +1,41 @@
+@import url("screen10.css");    /*Importa estilos do screen10*/
+@import url("cabecalho.css");    /*Importa estilos do cabeçalho*/
+@import url("formulario.css");   /*Importa estilos do formulario*/
+@import url("menusuperior.css"); /*Importa estilos do menusuperior*/
+@import url("menulateral.css");  /*Importa estilos do menulateral*/
+@import url("rodape.css");  /*Importa estilos do rodape*/
+@import url("calendario.css");  /*Importa estilos do calendario*/
+
+#geral{
+	width: 1002px;
+	background-color: #fff;
+	padding: 0;
+	margin: 0 5;
+	height:auto;
+	float:left;
+}
+
+#geralpopup{
+	width: 570px;
+	background-color: #fff;
+	padding: 0;
+	margin: 0 5;
+	height:auto;
+	float:left;
+}
+body{
+	background-color: #999; /*Cinza que só aparece em telas > que 1024x768*/
+	margin: 0 auto;
+}
+bodyPopup{
+	background-color: #999; /*Cinza que só aparece em telas > que 1024x768*/
+	width: 500px;
+	height: 480px;
+}
+.ul_menu{
+	padding: 0;
+	margin: 0;
+}
+
+
+

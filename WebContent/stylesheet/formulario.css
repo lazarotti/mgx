@@ -1,0 +1,251 @@
+.label_login{	/*Rótoulo dos formulários*/
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333;
+	font-size: 11px;
+	float: left;
+	border-bottom: 1px #e2e2e2 solid;
+	width: 78px;
+	margin-top:22px;
+	margin-left: 20px;
+}
+
+.1{
+	margin-top:20px;
+}
+.opcoes{
+	line-height: 40px;
+}
+.prop{
+	background: #fff;
+}
+.prop a{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #0000ff;
+	font-size: 11px;
+}
+.name{
+	border-bottom: 1px #e2e2e2 solid;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333;
+	font-size: 11px;
+	float: left;
+	width: 78px;
+	margin-top:15px;
+}
+.value1{
+	width: 720px;
+}
+.value2{
+	width: 320px;
+}
+.value3{
+	width: 200px;
+}
+
+.table_form{
+	float: left;
+	z-index: 1;
+	margin-bottom: 20px;
+	width: 100%;
+}	
+#mapa{
+	font-family: arial , arial, tahoma;
+	font-size: 11px;
+	color: #003366;
+	float:left;
+	width: 700px;
+	z-index: 3;
+	clear:right;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	background: #fff;
+}
+#mapa a{
+	text-decoration: none;
+	color: #003366;
+}
+#mapa a:hover{
+	text-decoration: underline;
+}
+.form_menu{ /*Usado para não distorcer o layout no IE*/
+	margin: 0;
+	padding:0;
+}
+h2{ /*Título principal dos formulários*/
+	font-family: arial , arial, tahoma;
+	font-size: 20px;
+	color: #003366;	
+}
+h3{/*Sub-título dos formulários*/
+	font-family: verdana, tahoma;
+	font-size: 15px;
+	color: #5286B8;	
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	clear:left;
+}
+h4{/*Título sistema*/
+	font-family: tahoma;
+	font-size: 18px;
+	color: #003366;	
+	font-weight: bold;
+	float:left;
+}
+.tit{/*Título sistema*/
+	font-family: tahoma;
+	font-size: 22px;
+	color: #003366;	
+	font-weight: bold;
+	float:left;
+	height: 22px;
+	margin-left: 10px;
+}
+.marca_login{
+	width: 415px;
+	height:410px;
+	border: 1px #ccc dotted;
+	float:left;
+	margin-left: 10px;
+	margin-top: 10px;
+	}
+.input2{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	font-size: 11px;
+	width: 302px;
+	float: left;
+	line-height: 13px;
+	margin-top: 20px;
+}
+.checkbox{
+	width: 15px;
+	margin-left: 0;
+}
+.aviso_imagem{
+	float: left;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#3b5f8f;
+	font-size:9px;
+	width: 292px;
+}
+.imagem_login{
+	float: left;
+	margin-top: 20px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#0066CC;
+	font-size:9px;
+	width:270px;
+	height: 150px;
+	border-bottom: 2px #ccc solid;
+	border-right: 2px #ccc solid;
+	border-top: 1px #ccc solid;
+	border-left: 1px #ccc solid;
+}
+.botao{
+	width:130px;
+	height:21px;
+	color:#ffffff;
+	cursor:pointer;
+	background-image:url(../imagens/fundo_botao.jpg);
+	border: 0;
+}
+.botao_tabela{
+	width:130px;
+	height:21px;
+	color:#ffffff;
+	cursor:pointer;
+	background-image:url(../imagens/fundo_botao.jpg);
+	border: 0;
+	float:right;
+	margin-right: 5px;
+}
+.link_login a{
+	width:141px;
+	height:21px;
+	color:#000;
+	cursor:pointer;
+	border: 0;
+	float:left;
+	margin-top: 22px;
+	margin-left: 17px;
+	font-size:10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+hr{ /*linha cinza pontilhada que fica abaixo do sub-titulo*/
+	border: 1px #e2e2e2 dotted;
+}
+label{	/*Rótoulo dos formulários*/
+	font-size: 11px;
+	float: left;
+	margin-top:15px;
+}
+.espacoformulario{
+	width: 825px;
+	background-color: #fff;
+	float: left;
+	margin-left: 10px;
+}
+.msgErro{
+	color: red;
+}
+.mensagem_erro {
+	background-color: #d3d3d3;
+	font-family: verdana, tahoma, arial;
+	font-size: 11px;
+	font-weight: normal;
+	color: #d90000;
+	line-height: 15px;
+	width: 760px;;
+	float:left;
+}
+.mensagem_erro a {
+	background-color: #d3d3d3;
+	font-family: verdana, tahoma, arial;
+	font-size: 11px;
+	font-weight: bold;
+	color: #d90000;
+}
+.mensagem_erro label {
+	font-family: verdana, tahoma, arial;
+	border-bottom:none;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration:underline;
+	cursor:pointer;
+	color: #d90000;
+	padding: 0;
+	margin: 0;
+}
+
+.icone_erro {
+	background-image: url(../imagens/erro.gif);
+	background-repeat: no-repeat;
+	width: 45px;
+	background-color: #d3d3d3;
+	height: 35px;
+}
+.titulo_erro {
+	background-color: #d3d3d3;
+	border-bottom: 2px #d90000 solid;
+	font-family: arial, verdana, tahoma;
+	font-size: 16px;
+	font-weight: bold;
+	color: #d90000;
+	vertical-align: bottom;
+	line-height: 35px;
+	width: 745px;
+}
+#qr_open{
+	color: #d90000;
+	background-color: #d3d3d3;
+	float:left;
+}
+.ul_menu li{
+	list-style: none;
+}
+.mensagens{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}

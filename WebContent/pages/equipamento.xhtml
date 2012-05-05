@@ -1,0 +1,52 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="equipamentoForm">
+		<h:messages globalOnly="true" styleClass="message" />
+		<rich:panel header="Equipamento">
+			<h:panelGrid columns="4" cellspacing="15" columnClasses="panel_label,panel_input_space,panel_label,panel_input" style="width:100%">
+				<h:outputLabel value="N. Serie" for="numeroSerie" />
+				<h:inputText id="numeroSerie" value="#{equipamento.numeroSerie}" />
+				
+				<h:outputLabel value="Tipo" for="tipo"/>
+				<h:selectOneMenu id="tipo" value="#{equipamento.tipoEquipamento}">
+					<s:selectItems value="#{tipoAll}" var="tipo" label="#{tipo.nome}" noSelectionLabel=""/>
+					<s:convertEntity />					
+				</h:selectOneMenu>	
+				
+				<h:outputLabel value="Fabricante" for="fabricante" />
+				<h:selectOneMenu id="fabricante" value="#{equipamento.fabricante}" >
+					<s:selectItems value="#{fabricanteAll}" var="fabricante" label="#{fabricante.nome}" noSelectionLabel=""/>
+					<s:convertEntity />					
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Modelo" for="modelo" />
+				<h:inputText id="modelo" value="#{equipamento.modelo}" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">
+					<h:commandButton  value="Salvar" action="#{equipamentoDao.persist}" rendered="#{!equipamentoDao.isManaged()}" styleClass="botao"/>
+					<h:commandButton  value="Alterar" action="#{equipamentoDao.update}" rendered="#{equipamentoDao.isManaged()}" styleClass="botao"/>	
+					<h:commandButton  value="Apagar" action="#{equipamentoDao.remove}" rendered="#{equipamentoDao.isManaged()}" styleClass="botao"/>
+					<s:button action="#{gerenciadorOS.novaOrdem(equipamento)}" value="Lancar OS"  rendered="#{equipamentoDao.isManaged()}" styleClass="botao"/>
+					<s:button view="/pages/equipamentoFiltro.xhtml" value="Voltar" style="margin-left:5px" styleClass="botao" propagation="end"/>	
+				</s:div>
+			</h:panelGrid>			
+			
+		</rich:panel>
+		
+		</h:form>
+		
+	
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,39 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+>
+
+	<ui:define name="body">
+
+	<h:messages styleClass="message" />
+	<h:form id="tecnicoForm">		
+		<rich:panel header="Tecnico">
+			<h:panelGrid columns="2" cellspacing="15" columnClasses="panel_label,panel_input_space" style="width:100%">
+
+				<h:outputLabel value="Nome" for="nome" />
+				<h:inputText id="nome" value="#{tecnico.nome}"  style="width:500px" required="true"/>
+
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" style="width:100%" >
+				<s:div style="float:right;margin-botton:5px">
+					<h:commandButton  value="Salvar" action="#{tecnicoDao.persist}" rendered="#{!tecnicoDao.isManaged()}" styleClass="botao"/>
+					<h:commandButton  value="Alterar" action="#{tecnicoDao.update}" rendered="#{tecnicoDao.isManaged()}" styleClass="botao"/>	
+					<h:commandButton  value="Apagar" action="#{tecnicoDao.remove}" rendered="#{tecnicoDao.isManaged()}" styleClass="botao"/>											
+					<s:button view="/pages/tecnicoFiltro.xhtml" value="Voltar" style="margin-left:5px" styleClass="botao"/>					
+				</s:div>
+			</h:panelGrid>				
+												
+						
+		</rich:panel>
+		</h:form>	
+
+
+	</ui:define>
+</ui:composition>

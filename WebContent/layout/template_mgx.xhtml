@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:rich="http://richfaces.org/rich">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>mgx</title>
+
+<link href="../stylesheet/mgx.css" rel="stylesheet" type="text/css" />
+
+
+<style type="text/css">
+
+body {
+	height:100%;	
+	margin: 0;
+	padding: 0;
+	background-color:gray;
+	text-align: center; /* hack para o IE */
+}
+
+#tudo {
+	width: 760px;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: left; /* "remédio" para o hack do IE */
+}
+
+#conteudo {
+	padding: 5px;
+	background-color:white;
+}
+</style>
+</head>
+
+<body>
+<div id="tudo">
+<div><img src="../img/cabec.png" alt="WOS" class="logo" /></div>
+
+<!--  <ui:include src="menu.xhtml">
+	<ui:param name="projectName" value="mgx" />
+</ui:include> -->
+
+<div id="conteudo">
+	<div class="body">
+	<h:form id="menuForm">
+<rich:toolBar >
+
+<s:link view="/pages/resumo.seam" value="Resumo" style="color:white;text-decoration:none"/>
+
+		
+ <rich:dropDownMenu >
+                 <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Ordens de Serviço"/>
+                    </h:panelGroup>
+                </f:facet>
+                	<rich:menuItem submitMode="server" value="Lançar Equipamento"
+                  	 	 action="/pages/equipamentoFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Pesquisar Ordens"
+                   		 action="/pages/osFiltro.seam"/>
+ </rich:dropDownMenu>
+ 
+  <rich:dropDownMenu>
+                 <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Cadastros"/>
+                    </h:panelGroup>
+                </f:facet>
+                	<rich:menuItem submitMode="server" value="Acessório"
+                  	 	 action="/pages/acessorioFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Cliente"
+                   		 action="/pages/clienteFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Garantia"
+                   		 action="/pages/garantiaFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Pagamento"
+                   		 action="/pages/pagamentoFiltro.seam"/>                   		 
+                	<rich:menuItem submitMode="server" value="Técnico"
+                   		 action="/pages/tecnicoFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Fornecedor"
+                   		 action="/pages/fornecedorFiltro.seam"/>
+                	<rich:menuItem submitMode="server" value="Fabricante"
+                   		 action="/pages/fabricanteFiltro.seam"/>                     		                    		 
+                	<rich:menuItem submitMode="server" value="TipoEquipamento"
+                   		 action="/pages/tipoEquipamentoFiltro.seam"/>                   		 
+ </rich:dropDownMenu>
+ 
+ </rich:toolBar>
+</h:form>
+	<ui:insert name="body" />
+	
+	
+	</div>
+</div>
+
+
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+
+		<h:messages globalOnly="true" styleClass="message" />
+
+
+		<rich:panel header="Pesquisa clientes">
+			<h:form id="equipamentoFiltro">			
+				<h:panelGrid columns="4" cellspacing="15"
+					columnClasses="panel_label,panel_input_space,panel_label,panel_input"
+					style="width:100%">
+
+
+					<h:outputLabel value="Nome fantasia" for="nomeFantasia" />
+					<h:inputText id="nomeFantasia"
+						value="#{clienteFiltro.cadastro.nomeFantasia}" />
+
+					<h:outputLabel value="Razao Social" for="razaoSocial" />
+					<h:inputText id="razaoSocial"
+						value="#{clienteFiltro.cadastro.razaoSocial}" />
+
+					<h:outputLabel value="CNPJ / CPF" for="cpfCnpj" />
+					<h:inputText id="cpfCnpj" value="#{clienteFiltro.cadastro.cpfCnpj}" />
+
+					<h:outputLabel value="Inscricao" for="inscricao" />
+					<h:inputText id="inscricao"
+						value="#{clienteFiltro.cadastro.inscricao}" />
+
+					<h:outputLabel value="Email" for="email" />
+					<h:inputText id="email" value="#{clienteFiltro.cadastro.email}" />
+
+					<h:outputLabel value="Telefone" for="telefone1" />
+					<h:inputText id="telefone1"
+						value="#{clienteFiltro.cadastro.telefone1}" />
+
+					<h:outputLabel value="Contato" for="contato" />
+					<h:inputText id="contato" value="#{clienteFiltro.cadastro.contato}" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" style="width:100%">
+					<h:commandButton value="Exibir" styleClass="botao"
+						style="float:right;margin-botton:5px" />
+				</h:panelGrid>
+			</h:form>	
+		</rich:panel>
+
+		<rich:panel header="Resultados encontrados">
+		<h:form id="tabelaForm">
+			<h:panelGrid columns="1" style="width:100%">
+				<s:div style="float:right;margin-botton:5px">
+					<s:button view="/pages/cliente.xhtml" value="Novo Cliente"
+						styleClass="botao" />
+				</s:div>
+			</h:panelGrid>
+
+			<rich:dataTable id="tableCliente" 
+				var="clienteTable" width="100%" rows="10"
+				value="#{clienteFiltroQuery.resultList}"  >
+				<rich:column sortable="true">
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<s:link value="#{clienteTable.cadastro.nomeFantasia}"
+						view="/pages/cliente.seam">
+						<f:param name="clienteId" value="#{clienteTable.id}" />
+					</s:link>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Email" />
+					</f:facet>
+					<s:link value="#{clienteTable.cadastro.email}"
+						view="/pages/cliente.seam">
+						<f:param name="clienteId" value="#{clienteTable.id}" />
+					</s:link>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Telefone" />
+					</f:facet>
+					<s:link value="#{clienteTable.cadastro.telefone1}"
+						view="/pages/cliente.seam">
+						<f:param name="clienteId" value="#{clienteTable.id}" />
+					</s:link>
+					<s:link value="#{clienteTable.cadastro.telefone2}"
+						view="/pages/cliente.seam">
+						<f:param name="clienteId" value="#{clienteTable.id}" />
+					</s:link>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Contato" />
+					</f:facet>
+					<s:link value="#{clienteTable.cadastro.contato}"
+						view="/pages/cliente.seam">
+						<f:param name="clienteId" value="#{clienteTable.id}" />
+					</s:link>
+				</rich:column>
+
+
+			</rich:dataTable>
+
+			<rich:datascroller for="tableCliente" id="sc1"/>
+		
+			</h:form>
+		</rich:panel>
+
+	</ui:define>
+</ui:composition>

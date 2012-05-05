@@ -1,0 +1,15 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:m="http://jboss.com/products/seam/mail">
+
+    <m:from name="Megamax" address="megamax@megamax.inf.br" />
+    <m:replyTo address="megamaxorcamentos@terra.com.br" />
+    
+
+    <m:to name="Alessandro">alessandro@siq.com.br</m:to>
+
+    <m:subject>Envio de Orcamento</m:subject>
+		<m:attachment value="#{relatorio}"/>   
+    <m:body>    
+		Teste
+    </m:body>
+</m:message>

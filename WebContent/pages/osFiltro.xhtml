@@ -1,0 +1,166 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../layout/template_mgx.xhtml"
+	xmlns:siq="http://www.siq.com.br/faces"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+		<h:messages styleClass="message" showSummary="true" />
+
+
+
+		<!-- comeca aqui -->
+		<h:form id="osFiltro">
+			<rich:panel header="Pesquisa Ordem de Servico">
+				<h:panelGrid columns="4" cellspacing="15"
+					columnClasses="panel_label,panel_input_space,panel_label,panel_input"
+					style="width:100%">
+
+
+					<h:outputLabel value="Numero" for="numero" />
+					<h:inputText id="numero" value="#{osFiltro.numero}"  />
+
+					<h:outputLabel value="Cliente" for="cliente" />
+				
+					<h:inputText id="cliente" value="#{osFiltro.cliente.cadastro.nomeFantasia}" />					
+
+					<h:outputLabel value="N. Serie" for="numeroSerie" />
+					<h:inputText id="numeroSerie"
+						value="#{osFiltro.equipamento.numeroSerie}" />
+
+					<h:outputLabel value="Tipo" for="tipo" />
+					<h:selectOneMenu id="tipo"
+						value="#{osFiltro.equipamento.tipoEquipamento}">
+						<s:selectItems value="#{tipoAll}" var="tipo" label="#{tipo.nome}"
+							noSelectionLabel="" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				
+					<h:outputLabel value="Fabricante" for="fabricante" />
+					<h:inputText id="fabricante" value="#{osFiltro.equipamento.fabricante.nome}" />						
+					
+
+					<h:outputLabel value="Modelo" for="modelo" />
+					<h:inputText id="modelo" value="#{osFiltro.equipamento.modelo}" />
+
+
+ 
+					<h:outputLabel value="Data entrada" for="dataEntrada" />
+					<rich:calendar inputStyle="width:200px" id="dataEntrada"
+						popup="true" datePattern="dd/MM/yyyy"
+						value="#{osFiltro.dataEntrada}" />
+
+					<h:outputLabel value="Data retirada" for="dataRetirada" />
+					<rich:calendar inputStyle="width:200px" id="dataRetirada"
+						popup="true" datePattern="dd/MM/yyyy"
+						value="#{osFiltro.dataRetirada}" />
+
+					<h:outputLabel value="Tecnico Resp" for="tecnico" />
+					<h:selectOneMenu id="tecnico" value="#{osFiltro.tecnico}">
+						<s:selectItems value="#{tecnicoAll}" var="tecnico"
+							label="#{tecnico.nome}" noSelectionLabel="" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="Status" for="status" />
+					<h:selectOneMenu id="status" value="#{osFiltro.status.statusTipo}">
+						<s:selectItems value="#{osFiltro.status.getStatusCollection()}"
+							var="status" noSelectionLabel="" label="#{status.label}" />
+						<s:convertEnum />
+					</h:selectOneMenu>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" style="width:100%">
+					<h:commandButton value="Exibir"
+						style="float:right;margin-botton:5px" styleClass="botao" />
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+
+		<rich:panel header="Resultados encontrados">
+			<h:form id="osFiltroListaForm">
+
+				<rich:dataTable id="tableOs"  var="osTable" rows="200"
+					width="100%" value="#{osFiltroQuery.resultList}" >
+
+					<rich:column sortable="true">
+						<f:facet name="header">
+							<h:outputText value="Numero" />
+						</f:facet>
+						<h:commandLink value="#{osTable.numero}"
+							action="#{gerenciadorOS.editarOrdem(osTable)}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Cliente" />
+						</f:facet>
+						<h:commandLink value="#{osTable.cliente.cadastro.nomeFantasia}"
+							action="#{gerenciadorOS.editarOrdem(osTable)}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Fabricante" />
+						</f:facet>
+						<h:commandLink value="#{osTable.equipamento.fabricante.nome}"
+							action="#{gerenciadorOS.editarOrdem(osTable)}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Equipamento" />
+						</f:facet>
+						<h:commandLink
+							value="#{osTable.equipamento.tipoEquipamento.nome} #{osTable.equipamento.modelo}"
+							action="#{gerenciadorOS.editarOrdem(osTable)}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Data Entrada" />
+						</f:facet>
+						<h:commandLink action="#{gerenciadorOS.editarOrdem(osTable)}">
+							<h:outputText value="#{osTable.dataEntrada}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</h:commandLink>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Data Retirada" />
+						</f:facet>
+						<h:commandLink action="#{gerenciadorOS.editarOrdem(osTable)}">
+							<h:outputText value="#{osTable.dataRetirada}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</h:commandLink>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Status" />
+						</f:facet>
+						<h:commandLink value="#{osTable.status.statusTipo.label}"
+							action="#{gerenciadorOS.editarOrdem(osTable)}" />
+					</rich:column>
+
+
+
+				</rich:dataTable>
+				<rich:datascroller for="tableOs" id="sc1" />
+			</h:form>
+		</rich:panel>
+
+	</ui:define>
+</ui:composition>

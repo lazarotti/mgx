@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:core="http://jboss.com/products/seam/core"
+	xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:framework="http://jboss.com/products/seam/framework"
+	xmlns:mail="http://jboss.com/products/seam/mail"
+	xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:security="http://jboss.com/products/seam/security"
+	xmlns:jms="http://jboss.com/products/seam/jms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/framework http://jboss.com/products/seam/framework-2.0.xsd             http://jboss.com/products/seam/jms http://jboss.com/products/seam/jms-2.0.xsd                 http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.0.xsd                   http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.0.xsd                   http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.0.xsd                  http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.0.xsd                  http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.0.xsd                  http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.0.xsd                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.0.xsd">
+	<core:init debug="true" jndi-pattern="@jndiPattern@" transaction-management-enabled="false" />
+	<core:manager concurrent-request-timeout="500"
+		conversation-id-parameter="cid" conversation-timeout="120000" />
+	<persistence:managed-persistence-context auto-create="true"
+		entity-manager-factory="#{mgxEntityManagerFactory}"
+		name="entityManager" />
+	<persistence:entity-manager-factory name="mgxEntityManagerFactory"
+		persistence-unit-name="mgx" />
+	<drools:rule-base name="securityRules">
+		<drools:rule-files>
+			<value>/security.drl</value>
+		</drools:rule-files> 
+	</drools:rule-base>
+		
+   <component name="org.jboss.seam.jms.queueConnection" class="org.jboss.seam.jms.QueueConnection" scope="EVENT" precedence="40" startup="false">
+	 <property name="queueConnectionFactoryJndiName">ConnectionFactory</property>
+	</component> 
+	
+	<security:identity
+		authenticate-method="#{authenticator.authenticate}" remember-me="true"
+		security-rules="#{securityRules}" />
+	<event type="org.jboss.seam.notLoggedIn">
+		<action execute="#{redirect.captureCurrentView}" />
+	</event>
+	<event type="org.jboss.seam.postAuthenticate">
+		<action execute="#{redirect.returnToCapturedView}" />
+	</event>
+	<core:resource-loader>
+		<core:bundle-names>
+			<value>messages</value>
+			<value>mgx</value>
+		</core:bundle-names>
+	</core:resource-loader>
+	<mail:mail-session host="smtp.megamax.inf.br" password="megamax1508"
+		port="587" username="megamax@megamax.inf.br" />
+	<component auto-create="true" class="br.com.mgx.entity.Equipamento"
+		name="equipamentoFiltro" scope="event" />
+	<component auto-create="true" class="br.com.mgx.entity.OrdemServico"
+		name="osFiltro" scope="conversation" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Equipamento"
+		entity-manager="#{entityManager}" name="equipamentoDao" />
+	<factory name="equipamento" scope="event"
+		value="#{equipamentoDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.OrdemServico"
+		entity-manager="#{entityManager}" name="osDao" scope="event" />
+	<factory name="ordemServico" scope="event"
+		value="#{osDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Acessorio"
+		entity-manager="#{entityManager}" name="acessorioDao" scope="event" />
+	<factory name="acessorio" scope="event"
+		value="#{acessorioDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Garantia"
+		entity-manager="#{entityManager}" name="garantiaDao" scope="event" />
+	<factory name="garantia" scope="event"
+		value="#{garantiaDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Pagamento"
+		entity-manager="#{entityManager}" name="pagamentoDao" scope="event" />
+	<factory name="pagamento" scope="event"
+		value="#{pagamentoDao.instance}" />
+	<framework:entity-home
+		entity-class="br.com.mgx.entity.TipoEquipamento"
+		entity-manager="#{entityManager}" name="tipoEquipamentoDao"
+		scope="event" />
+	<factory name="tipoEquipamento" scope="event"
+		value="#{tipoEquipamentoDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Cliente"
+		entity-manager="#{entityManager}" name="clienteDao" scope="event" />
+	<factory name="cliente" scope="event"
+		value="#{clienteDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Fornecedor"
+		entity-manager="#{entityManager}" name="fornecedorDao" scope="event" />
+	<factory name="fornecedor" scope="event"
+		value="#{fornecedorDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Fabricante"
+		entity-manager="#{entityManager}" name="fabricanteDao" scope="event" />
+	<factory name="fabricante" scope="event"
+		value="#{fabricanteDao.instance}" />
+	<framework:entity-home entity-class="br.com.mgx.entity.Tecnico"
+		entity-manager="#{entityManager}" name="tecnicoDao" scope="event" />
+	<factory name="tecnico" scope="event"
+		value="#{tecnicoDao.instance}" />
+	<framework:entity-query ejbql="from Equipamento equipamento"
+		entity-manager="#{entityManager}" max-results="50"
+		name="equipamentoFiltroQuery" order="nome" scope="conversation">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(equipamento.numeroSerie) like
+				upper(concat('%',#{equipamentoFiltro.numeroSerie},'%'))
+			</value>
+			<value>
+				upper(equipamento.fabricante.nome) like
+				upper(concat('%',#{equipamentoFiltro.fabricante.nome},'%'))
+			</value>
+			<value>
+				equipamento.tipoEquipamento.id =
+				#{equipamentoFiltro.tipoEquipamento.id}
+			</value>
+			<value>
+				upper(equipamento.modelo) like
+				upper(concat('%',#{equipamentoFiltro.modelo},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<framework:entity-query ejbql="from OrdemServico os"
+		entity-manager="#{entityManager}" max-results="500"
+		name="osFiltroQuery" order="numero" scope="page">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>os.numero = #{osFiltro.numero}</value>
+			<value>
+				upper(os.cliente.cadastro.nomeFantasia) like
+				upper(concat('%',#{osFiltro.cliente.cadastro.nomeFantasia},'%'))
+			</value>
+			<value>
+				upper(os.equipamento.numeroSerie) like
+				upper(concat('%',#{osFiltro.equipamento.numeroSerie},'%'))
+			</value>
+			<value>
+				os.equipamento.tipoEquipamento.id =
+				#{osFiltro.equipamento.tipoEquipamento.id}
+			</value>
+			<value>
+				upper(os.equipamento.fabricante.nome) like
+				upper(concat('%',#{osFiltro.equipamento.fabricante.nome},'%'))
+			</value>
+			<value>
+				upper(os.equipamento.modelo) like
+				upper(concat('%',#{osFiltro.equipamento.modelo},'%'))
+			</value>
+			<value>os.dataEntrada = #{osFiltro.dataEntrada}</value>
+			<value>os.dataRetirada = #{osFiltro.dataRetirada}</value>
+			<value>os.tecnico.id = #{osFiltro.tecnico.id}</value>
+			<value>
+				os.status.statusTipo = #{osFiltro.status.statusTipo}
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### GARANTIA ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Garantia"
+		name="garantiaFiltro" />
+	<framework:entity-query ejbql="from Garantia garantia"
+		entity-manager="#{entityManager}" name="garantiaFiltroQuery"
+		order="nome" scope="event">
+		<framework:ejbql />
+		<framework:order>garantia.nome</framework:order>
+		<framework:restrictions>
+			<value>
+				upper(garantia.nome) like
+				upper(concat('%',#{garantiaFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### GARANTIA ########### 
+		########### ACESSORIO ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Acessorio"
+		name="acessorioFiltro" />
+	<framework:entity-query ejbql="from Acessorio acessorio"
+		entity-manager="#{entityManager}" name="acessorioFiltroQuery"
+		order="nome">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(acessorio.nome) like
+				upper(concat('%',#{acessorioFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### ACESSORIO ########### 
+		########### FABRICANTE ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Fabricante"
+		name="fabricanteFiltro" />
+	<framework:entity-query ejbql="from Fabricante fabricante"
+		entity-manager="#{entityManager}" max-results="50"
+		name="fabricanteFiltroQuery" order="nome">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(fabricante.nome) like
+				upper(concat('%',#{fabricanteFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### FABRICANTE ########### 
+		########### PAGAMENTO ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Pagamento"
+		name="pagamentoFiltro" />
+	<framework:entity-query ejbql="from Pagamento pagamento"
+		entity-manager="#{entityManager}" name="pagamentoFiltroQuery"
+		order="nome">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(pagamento.nome) like
+				upper(concat('%',#{pagamentoFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### PAGAMENTO ########### 
+		########### TECNICO ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Tecnico"
+		name="tecnicoFiltro" />
+	<framework:entity-query ejbql="from Tecnico tecnico"
+		entity-manager="#{entityManager}" name="tecnicoFiltroQuery"
+		order="nome">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(tecnico.nome) like
+				upper(concat('%',#{tecnicoFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### TECNICO ########### 
+		########### TIPO_EQUIPAMENTO ########### -->
+	<component auto-create="true"
+		class="br.com.mgx.entity.TipoEquipamento"
+		name="tipoEquipamentoFiltro" />
+	<framework:entity-query ejbql="from TipoEquipamento tipoEquipamento"
+		entity-manager="#{entityManager}" name="tipoEquipamentoFiltroQuery"
+		order="nome">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(tipoEquipamento.nome) like
+				upper(concat('%',#{tipoEquipamentoFiltro.nome},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### TIPO_EQUIPAMENTO ########### 
+		########### CLIENTE ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Cliente"
+		name="clienteFiltro" scope="conversation" />
+	<framework:entity-query ejbql="from Cliente cliente"
+		entity-manager="#{entityManager}" max-results="50"
+		name="clienteFiltroQuery" order="cliente.cadastro.nomeFantasia"
+		scope="conversation">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(cliente.cadastro.nomeFantasia) like
+				upper(concat('%',#{clienteFiltro.cadastro.nomeFantasia},'%'))
+			</value>
+			<value>
+				upper(cliente.cadastro.razaoSocial) like
+				upper(concat('%',#{clienteFiltro.cadastro.razaoSocial},'%'))
+			</value>
+			<value>
+				upper(cliente.cadastro.cpfCnpj) like
+				upper(concat('%',#{clienteFiltro.cadastro.cpfCnpj},'%'))
+			</value>
+			<value>
+				upper(cliente.cadastro.inscricao) like
+				upper(concat('%',#{clienteFiltro.cadastro.inscricao},'%'))
+			</value>
+			<value>
+				upper(cliente.cadastro.email) like
+				upper(concat('%',#{clienteFiltro.cadastro.email},'%'))
+			</value>
+			<value>
+				(upper(cliente.cadastro.telefone1) like
+				upper(concat('%',#{clienteFiltro.cadastro.telefone1},'%')))
+			</value>
+			<value>
+				upper(cliente.cadastro.contato) like
+				upper(concat('%',#{clienteFiltro.cadastro.contato},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### CLIENTE ########### 
+		########### FORNECEDOR ########### -->
+	<component auto-create="true" class="br.com.mgx.entity.Fornecedor"
+		name="fornecedorFiltro" scope="conversation" />
+	<framework:entity-query ejbql="from Fornecedor fornecedor"
+		entity-manager="#{entityManager}" max-results="50"
+		name="fornecedorFiltroQuery" order="fornecedor.cadastro.nomeFantasia"
+		scope="conversation">
+		<framework:ejbql />
+		<framework:restrictions>
+			<value>
+				upper(fornecedor.cadastro.nomeFantasia) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.nomeFantasia},'%'))
+			</value>
+			<value>
+				upper(fornecedor.cadastro.razaoSocial) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.razaoSocial},'%'))
+			</value>
+			<value>
+				upper(fornecedor.cadastro.cpfCnpj) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.cpfCnpj},'%'))
+			</value>
+			<value>
+				upper(fornecedor.cadastro.inscricao) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.inscricao},'%'))
+			</value>
+			<value>
+				upper(fornecedor.cadastro.email) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.email},'%'))
+			</value>
+			<value>
+				(upper(fornecedor.cadastro.telefone1) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.telefone1},'%')))
+			</value>
+			<value>
+				upper(fornecedor.cadastro.contato) like
+				upper(concat('%',#{fornecedorFiltro.cadastro.contato},'%'))
+			</value>
+		</framework:restrictions>
+	</framework:entity-query>
+	<!-- ########### FORNECEDOR ########### -->
+	<framework:entity-query ejbql="from Fabricante fabricante"
+		entity-manager="#{entityManager}" name="fabricanteAll" order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query ejbql="from Equipamento equipamento"
+		entity-manager="#{entityManager}" name="equipamentoAll"
+		order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query
+		ejbql="from Garantia garantia order by garantia.nome"
+		entity-manager="#{entityManager}" name="garantiaAll">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query ejbql="from TipoEquipamento tipo"
+		entity-manager="#{entityManager}" name="tipoAll" order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query
+		ejbql="from Cliente fornecedor order by fornecedor.cadastro.nomeFantasia"
+		entity-manager="#{entityManager}" name="fornecedorAll">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query ejbql="from Acessorio acessorio"
+		entity-manager="#{entityManager}" name="acessorioAll" order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query ejbql="from Tecnico tecnico"
+		entity-manager="#{entityManager}" name="tecnicoAll" order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query ejbql="from Pagamento pagamento"
+		entity-manager="#{entityManager}" name="pagamentoAll" order="nome">
+		<framework:ejbql />
+	</framework:entity-query>
+	<framework:entity-query
+		ejbql="from Cliente cliente order by cliente.cadastro.nomeFantasia"
+		entity-manager="#{entityManager}" name="clienteAll">
+		<framework:ejbql />
+	</framework:entity-query>
+	<event type="org.jboss.seam.afterTransactionSuccess.Equipamento">
+		<action execute="#{equipamentoFiltroQuery.refresh}" />
+	</event>
+	<event type="org.jboss.seam.afterTransactionSuccess.Cliente">
+		<action execute="#{clienteFiltroQuery.refresh}" />
+	</event>
+	<event type="org.jboss.seam.afterTransactionSuccess.Fornecedor">
+		<action execute="#{fornecedorFiltroQuery.refresh}" />
+	</event>
+	<event type="org.jboss.seam.afterTransactionSuccess.OrdemServico">
+		<action execute="#{osFiltroQuery.refresh}" />
+	</event>
+	<!-- For use with jBPM pageflow or process management 
+		
+		<bpm:jbpm>
+		<bpm:process-definitions></bpm:process-definitions>
+		<bpm:pageflow-definitions></bpm:pageflow-definitions>
+		</bpm:jbpm>
+	-->
+</components>

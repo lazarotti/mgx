@@ -1,0 +1,23 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:m="http://jboss.com/products/seam/mail"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+    <m:from name="Megamax" address="megamax@megamax.inf.br" />
+    <m:replyTo address="megamaxorcamentos@terra.com.br" />
+    <m:to name="#{gerenciadorOS.ordemServico.cliente.cadastro.contato}">#{gerenciadorOS.ordemServico.cliente.cadastro.email}</m:to>
+    <m:cc>megamaxorcamentos@terra.com.br</m:cc>
+	<m:attachment value="#{gerenciadorOS.relatorio}" contentType="application/pdf" fileName="megamax.pdf"/> 
+	      
+
+    <m:subject><h:outputText value="#{messages.email_orc_titulo}" escape="false"/></m:subject>
+
+    <m:body>
+
+        <p><h:outputText value="#{messages.email_orc_corpo1}" escape="false"/></p>
+        <p><h:outputText value="#{messages.email_orc_corpo2}" escape="false"/></p>
+        <p><h:outputText value="#{messages.email_orc_fim}" escape="false"/></p>        
+    </m:body>
+
+    
+
+</m:message>
